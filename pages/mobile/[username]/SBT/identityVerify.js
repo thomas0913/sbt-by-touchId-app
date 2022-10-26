@@ -45,6 +45,7 @@ export default function IdentityVerify() {
                         challenge,
                         allowCredentials: [{
                             id: credentialId, // from registration
+                            rpId: "sbt-by-touchid-49j9gdg1u-thomas0913.vercel.app",
                             type: 'public-key',
                         }],
                         timeout: 60000,

@@ -62,7 +62,7 @@ export default function SignUp() {
             challenge,
             rp: {
                 name: "SBT node server",
-                id: "localhost", //目前網站之網域名稱
+                id: "sbt-by-touchid-49j9gdg1u-thomas0913.vercel.app", //目前網站之網域名稱
             },
             user: {
                 id, //使用者之註冊資訊
@@ -75,8 +75,8 @@ export default function SignUp() {
             ],
             authenticatorSelection: { //optional
                 authenticatorAttachment: "platform", //TouchID
-                userVerification: "required",
-                requireResidentKey: false,
+                //userVerification: "required",
+                //requireResidentKey: false,
             },
             timeout: 60000, //超時則認證失敗
             attestation: "none" //server要求認證器回傳所有資訊
