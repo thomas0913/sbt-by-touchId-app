@@ -26,7 +26,7 @@ export default function IdentityVerify() {
  
     const getCredId = async () => {
         try{
-            await fetch("http://localhost:7000/identityVerify_sbt/return_credId", {
+            await fetch("https://sbt-manage-node-server.herokuapp.com/identityVerify_sbt/return_credId", {
                 method: "POST",
                 headers: {"Content-Type": "Application/json"},
                 body: JSON.stringify({username})

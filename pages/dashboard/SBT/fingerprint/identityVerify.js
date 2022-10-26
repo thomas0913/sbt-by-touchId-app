@@ -7,7 +7,7 @@ export default function IdentityVerify() {
             method: 'GET'
         }
 
-        await fetch("http://localhost:7000/email/identityVerify_sbt", option)
+        await fetch("https://sbt-manage-node-server.herokuapp.com/email/identityVerify_sbt", option)
             .then(res => {
                 console.log("成功發送驗證Email.");
             })

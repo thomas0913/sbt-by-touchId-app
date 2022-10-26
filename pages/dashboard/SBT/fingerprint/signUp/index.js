@@ -15,7 +15,7 @@ export default function SignUp() {
                 email: userEmail.email
             }
 
-            await fetch("http://localhost:7000/email/register_sbt", {
+            await fetch("https://sbt-manage-node-server.herokuapp.com/email/register_sbt", {
                 method: 'POST',
                 headers: {"Content-Type": "Application/json"},
                 body: JSON.stringify(user)

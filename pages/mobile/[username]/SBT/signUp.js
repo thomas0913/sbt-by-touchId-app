@@ -25,7 +25,7 @@ export default function SignUp() {
                         name: username,
                         key: key
                     }
-                    fetch("http://localhost:7000/register_sbt", {
+                    fetch("https://sbt-manage-node-server.herokuapp.com/register_sbt", {
                         method: "POST",
                         headers: {"Content-Type": "Application/json"},
                         body: JSON.stringify(userCred)
