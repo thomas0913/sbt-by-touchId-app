@@ -23,7 +23,7 @@ export default function IdentityVerify() {
             console.log(err);
         }
     }
-
+ 
     const getCredId = async () => {
         try{
             await fetch("http://localhost:7000/identityVerify_sbt/return_credId", {
