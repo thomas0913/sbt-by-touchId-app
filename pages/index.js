@@ -4,8 +4,14 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import styles from '../styles/Home.module.css'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 export default function Home() {
+  useEffect(() => {
+    const data = process.env.NEXT_PUBLIC_ACCOUNT;
+    console.log(data);
+  }, []);
+
   return (
     <>
       <Head>

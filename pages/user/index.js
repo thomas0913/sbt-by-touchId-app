@@ -1,6 +1,8 @@
-import React, {  useEffect } from "react";
+import React, {  useEffect, useState } from "react";
 import styles from "../../styles/User.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import {useSelector, useDispatch} from "react-redux";
 
 export const getStaticProps = async () => {
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -10,11 +12,27 @@ export const getStaticProps = async () => {
     }
 }
 
-export default function Login(props) {
+export default function CheckIfLoginOrNot(props) {
+    //const [alreadyLogin, setAlreadyLogin] = useState(false);
 
+    const router = useRouter();
+
+    const alreadyLogin = useSelector(states => states.accountStatus.alreadylogin_state);
+
+    useEffect(() => {
+        if (alreadyLogin === true) {
+            router.push('/user/dashboard');
+        }
+        else {
+            console.log("帳號未登入");
+            router.push('/user/login');
+        }
+    }, []);
+    
+    /*
     return (
         <div>
-            <h1>登入</h1>
+            <h1>我要登入</h1>
             {
                 props.account.map((data) => (
                     <Link key={data.id} href={`/user/${data.id}`}>
@@ -26,4 +44,5 @@ export default function Login(props) {
             }
         </div>
     );
+    */
 }
