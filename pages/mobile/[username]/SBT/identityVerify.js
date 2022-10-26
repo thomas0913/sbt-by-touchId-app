@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import base64url from "base64url";
 import { str2ab } from "../../../../lib/arrayBuffer";
-
+ 
 export default function IdentityVerify() {
     const [publicKeyCredentialRequestOptions, setPublicKeyCredentialRequestOptions] = useState();
 
