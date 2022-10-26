@@ -16,8 +16,16 @@ export default function IdentityVerify() {
             const assertion = await navigator.credentials.get({
                 publicKey: publicKeyCredentialRequestOptions
             })
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
+                .then((getAssertionResponse) => {
+                    alert('SUCCESSFULLY GOT AN ASSERTION! Open your browser console!');
+                    console.log('SUCCESSFULLY GOT AN ASSERTION!', getAssertionResponse);
+                })
+                .catch((error) => {
+                    alert('Open your browser console!');
+                    console.log('FAIL', error)
+                })
+
+            console.log(assertion);
         }
         catch(err) {
             console.log(err);
@@ -45,8 +53,8 @@ export default function IdentityVerify() {
                         challenge,
                         allowCredentials: [{
                             id: credentialId, // from registration
-                            rpId: "sbt-by-touchid-49j9gdg1u-thomas0913.vercel.app",
                             type: 'public-key',
+                            transports: ['internal'],
                         }],
                         timeout: 60000,
                     });
