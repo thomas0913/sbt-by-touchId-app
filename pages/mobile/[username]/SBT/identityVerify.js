@@ -11,7 +11,7 @@ export default function IdentityVerify() {
 
     const authenticate = async () => {
         try{
-            const user_historyData_request = await fetch(`https://sbt-manage-node-server.herokuapp.com/getUserData`, {
+            const user_historyData_request = await fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/getUserData`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'Application/Json'
@@ -22,7 +22,7 @@ export default function IdentityVerify() {
 
             /* 取得挑戰 */
             const credId = localStorage.getItem(`credId`);
-            const options = await fetch(`https://sbt-manage-node-server.herokuapp.com/signinRequest?credId=${encodeURIComponent(credId)}`, {
+            const options = await fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/signinRequest?credId=${encodeURIComponent(credId)}`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'Application/Json'
@@ -63,7 +63,7 @@ export default function IdentityVerify() {
                         };
                     }
 
-                    const user_historyData_response = await fetch(`https://sbt-manage-node-server.herokuapp.com/getUserData`, {
+                    const user_historyData_response = await fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/getUserData`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'Application/Json'
@@ -81,7 +81,7 @@ export default function IdentityVerify() {
                     }
 
                     /* 回傳給依賴端驗證解析驗證 */
-                    fetch(`https://sbt-manage-node-server.herokuapp.com/signinResponse`, {
+                    fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/signinResponse`, {
                         method: "POST",
                         headers: {"Content-Type": "Application/json"},
                         body: JSON.stringify(credential_response)

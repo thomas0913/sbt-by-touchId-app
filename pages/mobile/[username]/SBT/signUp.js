@@ -13,7 +13,7 @@ export default function SignUp() {
     const registerCredential = async () => {
         try{
             /* 取得挑戰與用戶ID */
-            const publicKeyCredentialCreationOptions = await fetch(`https://sbt-manage-node-server.herokuapp.com/registerRequest`, {
+            const publicKeyCredentialCreationOptions = await fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/registerRequest`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'Application/Json'
@@ -53,7 +53,7 @@ export default function SignUp() {
                     }
 
                     /* 回傳公鑰給依賴端驗證解析驗證並儲存 */
-                    fetch(`https://sbt-manage-node-server.herokuapp.com/registerResponse`, {
+                    fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/registerResponse`, {
                         method: "POST",
                         headers: {"Content-Type": "Application/json"},
                         body: JSON.stringify(credential_response)
