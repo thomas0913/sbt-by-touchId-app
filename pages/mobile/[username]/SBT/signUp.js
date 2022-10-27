@@ -4,8 +4,6 @@ import { publicKeyCredentialToJSON } from "../../../../lib/webauthn/helpers";
 import { useRouter } from 'next/router';
 
 export default function SignUp() {
-    const [publicKeyCredentialCreationOptions, setPublicKeyCredentialCreationOptions] = useState(); //此為伺服器提供之憑證指定格式
-    const [publicKeyCredential, setPublicKeyCredential] = useState(); //註冊人之公鑰憑證
     const [registeringStatus, setRegisteringStatus] = useState(false);
 
     const router = useRouter();
@@ -14,21 +12,51 @@ export default function SignUp() {
     //註冊公鑰生成器
     const registerCredential = async () => {
         try{
-            const credential = await navigator.credentials.create({
+            /* 取得挑戰與用戶ID */
+            const publicKeyCredentialCreationOptions = await fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/registerRequest`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'Application/Json'
+                },
+                body: JSON.stringify({ username })
+            })
+                .then(response => response.json())
+
+            //因為瀏覽器與驗證器之交互驅動只接受二進制編碼，因此要把userID與challenge轉回arrayBuffer型態
+            publicKeyCredentialCreationOptions.user.id = base64url.toBuffer(publicKeyCredentialCreationOptions.user.id);
+            publicKeyCredentialCreationOptions.challenge = base64url.toBuffer(publicKeyCredentialCreationOptions.challenge);
+
+            /* 瀏覽器與驗證器之交互並產生公鑰 */
+            await navigator.credentials.create({
                 publicKey: publicKeyCredentialCreationOptions
             })
-                .then(key => publicKeyCredentialToJSON(key))
-                .then(key => {
-                    console.log(key);
-                    setPublicKeyCredential(key);
-                    const userCred = {
+                .then((cred) => {
+
+                    const utf8Decoder = new TextDecoder('utf-8');
+                    const decodedClientData = utf8Decoder.decode(
+                        cred.response.clientDataJSON)
+
+                    // parse the string as an object
+                    const clientDataObj = JSON.parse(decodedClientData);
+
+                    console.log(clientDataObj)
+
+                    //因初始公鑰二進制型態不方便回傳至依賴端，所以在此轉為字串型態
+                    const credential = publicKeyCredentialToJSON(cred);
+                    //console.log(credential);
+
+                    localStorage.setItem(`credId`, credential.id);
+
+                    const credential_response = {
                         name: username,
-                        key: key
+                        credential
                     }
-                    fetch("https://sbt-manage-node-server.herokuapp.com/register_sbt", {
+
+                    /* 回傳公鑰給依賴端驗證解析驗證並儲存 */
+                    fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/registerResponse`, {
                         method: "POST",
                         headers: {"Content-Type": "Application/json"},
-                        body: JSON.stringify(userCred)
+                        body: JSON.stringify(credential_response)
                     })
                         .then(res => res.text())
                         .then(res => {
@@ -42,7 +70,6 @@ export default function SignUp() {
                         })
                         .catch(err => console.log(err))
                 })
-                .catch(err => console.log(err))
         }
         catch(err) {
             console.log(err);
@@ -50,38 +77,6 @@ export default function SignUp() {
     };
 
     /* 利用公鑰數據注入SBT智能合約中 */
-
-    useEffect(() => {
-        const challenge = new Uint8Array(32);
-        window.crypto.getRandomValues(challenge);
-        const userID = 'Kosv9fPtkDoh4Oz7Yq/pVgWHS8HhdlCto5cR0aBoVMw=';
-        const id = Uint8Array.from(window.atob(userID), (c) => {
-            c.charCodeAt(0);
-        });
-        setPublicKeyCredentialCreationOptions({
-            challenge,
-            rp: {
-                name: "SBT node server",
-                id: "sbt-by-touchid-49j9gdg1u-thomas0913.vercel.app", //目前網站之網域名稱
-            },
-            user: {
-                id, //使用者之註冊資訊
-                name: "thomas408440021@gms.tku.edu.tw",
-                displayName: "Thomas",
-            },
-            pubKeyCredParams: [ //server可支援之公鑰類型
-                {alg: -7, type: "public-key"},
-                {alg:-257, type: "public-key"}
-            ],
-            authenticatorSelection: { //optional
-                authenticatorAttachment: "platform", //TouchID
-                //userVerification: "required",
-                //requireResidentKey: false,
-            },
-            timeout: 60000, //超時則認證失敗
-            attestation: "none" //server要求認證器回傳所有資訊
-        });
-    }, []);
 
     useEffect(() => {
         if (registeringStatus === true) {
