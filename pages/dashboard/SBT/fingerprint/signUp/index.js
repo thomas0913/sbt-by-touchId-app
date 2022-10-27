@@ -12,7 +12,7 @@ export default function SignUp() {
         try{
             const user = {
                 name: username.name,
-                email: userEmail.email
+                email: userEmail.email 
             }
 
             await fetch(`${process.env.NEXT_PUBLIC_HEROKU_SERVER_URL}/email/register_sbt`, {
