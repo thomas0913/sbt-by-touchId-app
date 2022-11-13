@@ -1,34 +1,25 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from 'next/link';
 import { useDispatch } from 'react-redux';
-import { accountLoginSuccess, accountLoginFail } from '../../redux/action/accountStatus';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import { accountLoginSuccess } from '../../redux/action/accountStatus';
+import styles from "../../styles/Home.module.css";
 
 export default function Login() {
 
-    const router = useRouter();
     const dispatch = useDispatch();
 
     return (
-        <div>
-            <Typography
-                variant='h4'
-                align='center'
-                color="GrayText"
-            >
-                選擇登入方式
-            </Typography>
-            <Button
-                variant='contained'
-                color='primary'
-                onClick={() => {
-                    dispatch(accountLoginSuccess());
-                    router.push('/dashboard');
-                }}
-            >
-                指紋登入
-            </Button>
-        </div>
+        <>
+            <Head>
+                <title>SBT管理中心 | 登入</title>
+            </Head>
+            <div>
+                <h1 className={styles.title}>管理員登入</h1>
+                <br/><br/>
+                <Link href="/dashboard">
+                    <a className={styles.btn} onClick={() => {dispatch(accountLoginSuccess());}}>測試登入</a>
+                </Link>
+            </div>
+        </>
     );
 }

@@ -1,15 +1,18 @@
-import { useState } from "react";
-import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from "next/link";
+import styles from "../../styles/Home.module.css";
 
 export default function Dashboard() {
-    
-    const router = useRouter();
-    
     return (
-        <div>
-            <h1>監控版</h1>
-            <button onClick={() => router.push('/dashboard/SBT')}>SBT專區</button>
-            <button onClick={() => router.push('/dashboard/NFT')}>NFT專區</button>
-        </div>
+        <>
+            <Head>
+                <title>SBT管理中心 | 監控版</title>
+            </Head>
+            <div>
+                <h1 className={styles.title}>監控版</h1>
+                <Link href="/dashboard/SBT"><a className={styles.btn}>SBT專區</a></Link>
+                <Link href="/dashboard/NFT"><a className={styles.btn}>NFT專區</a></Link>
+            </div>
+        </>
     );
 }

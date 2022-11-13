@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { accountLoginSuccess, accountLoginFail } from '../../redux/action/accountStatus';
+import { useDispatch } from 'react-redux';
+import { accountLoginFail } from '../../redux/action/accountStatus';
+import styles from "../../styles/Home.module.css";
 
 export default function Logout() {
 
@@ -16,8 +18,13 @@ export default function Logout() {
     }, []);
 
     return (
-        <div>
-            <h1>登出</h1>
-        </div>
+        <>
+            <Head>
+                <title>SBT管理中心 | 登出</title>
+            </Head>
+            <div>
+                <h1 className={styles.title}>登出</h1>
+            </div>
+        </>
     );
 }
