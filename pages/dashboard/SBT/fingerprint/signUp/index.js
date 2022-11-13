@@ -51,7 +51,7 @@ export default function SignUp() {
 
     return (
         <div>
-           <h1 className={styles.title}>SBT註冊</h1>
+           <h1 className={styles.title}>靈魂註冊程序</h1>
            <form onSubmit={register_SBT}>
                 <div>
                     <h3>帳號名稱 :</h3>

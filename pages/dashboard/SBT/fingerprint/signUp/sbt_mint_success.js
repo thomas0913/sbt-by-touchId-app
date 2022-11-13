@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import styles from "../../../../../styles/Home.module.css";
 
 export default function Sbt_mint_success() {
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function Sbt_mint_success() {
 
     return (
         <div>
-            <h1>靈魂綁定代幣鑄造成功</h1>
+            <h1 className={styles.title}>靈魂綁定代幣鑄造成功</h1>
             <p>即將重新導向至監控台 . . .</p>
         </div>
     );

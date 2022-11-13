@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
 import { ethers } from 'ethers';
 import { useSelector } from "react-redux";
+import styles from "../../../../../styles/Home.module.css";
 
 import abi from "../../../../../smartContract/contracts/SBT_biometric.json";
 import sbtMetadata from "../../../../../smartContract/metadata/sbt_metadata.json";
@@ -23,7 +24,7 @@ export default function IdentityVerify() {
     const router = useRouter();
     const origin = process.env.NEXT_PUBLIC_HEROKU_SERVER_URL;
 
-    const contractAddress = "0x087bd06dBd076c579400e144566069Bf1D00D0A3";
+    const contractAddress = "0x42615207546fC235ff8d33c046EeC96C4bbAbF94";
     const contractABI = abi;
 
     const import_user_sbt = async (event) => {
@@ -63,12 +64,6 @@ export default function IdentityVerify() {
     const identityVerify_SBT = async (event) => {
         event.preventDefault();
         try{
-            if (username_check.name === username.name) {
-                console.log("check success");
-            }
-            else {
-                console.error("fail.");
-            }
             await fetch(`${origin}/email/identityVerify_sbt`, {
                 method: 'POST',
                 headers: {"Content-Type": "Application/json"},
@@ -78,7 +73,7 @@ export default function IdentityVerify() {
                 .then(res => {
                     if (res.message) {
                         console.log(res.message);
-                        //router.push('/dashboard/SBT/fingerprint/identityVerify/success');
+                        router.push('/dashboard/SBT/fingerprint/identityVerify/success');
                     }
                     else {
                         console.log(res);
@@ -95,10 +90,10 @@ export default function IdentityVerify() {
 
     return (
         <div>
-           <h1>SBT驗證</h1>
+           <h1 className={styles.title}>靈魂驗證程序</h1>
            {isWalletConnected && permissionAllowed && isContractManager === false
                 ?   <alert color='success'>
-                        SUCCESS : 歡迎使用代幣管理中心 ! ! !
+                        SUCCESS : 歡迎使用SBT管理中心 ! ! !
                         {isWalletConnected && <div><span className="font-bold">您當前的錢包地址 : </span>{sbtUserAddress}</div>}
                         <br/>
                     </alert>
@@ -153,7 +148,7 @@ export default function IdentityVerify() {
             </div>
             {userMetadata_fromSbt && userCred_fromSbt && (
                 <div>
-                <img src={`${userMetadata_fromSbt.image}`} alt="sbt image"/>
+                <img src={`${userMetadata_fromSbt.image}`} alt="sbt image" style={{width: "30%"}}/>
                     <alert>
                         <ul>
                             <li>用戶帳號名 : {username.name}</li>

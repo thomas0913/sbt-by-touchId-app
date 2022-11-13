@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import base64url from "base64url";
 import { publicKeyCredentialToJSON } from "../../../../../lib/webauthn/helpers";
 import { useRouter } from 'next/router';
+import styles from "../../../../../styles/Home.module.css";
 
 export default function SignUp() {
     const [registeringStatus, setRegisteringStatus] = useState(false);
@@ -61,13 +62,13 @@ export default function SignUp() {
 
     useEffect(() => {
         if (registeringStatus === true) {
-            router.push(`/mobile/${username}/SBT/identityVerify`);
+            router.push(`/mobile/${username}/SBT/signUp/success`);
         }
     }, [registeringStatus]);
 
     return(
         <div>
-            <h1>個人生物特徵數據註冊</h1>
+            <h1 className={styles.title}>指紋註冊</h1>
             <button onClick={() => registerCredential()}>開始註冊生物辨識數據</button>
         </div>
     );

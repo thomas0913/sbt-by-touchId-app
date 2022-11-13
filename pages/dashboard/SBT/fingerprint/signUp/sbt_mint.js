@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { ethers } from 'ethers';
+import styles from "../../../../../styles/Home.module.css";
 
 import abi from "../../../../../smartContract/contracts/SBT_biometric.json";
 import sbtMetadata from "../../../../../smartContract/metadata/sbt_metadata.json";
@@ -56,7 +57,7 @@ export default function Sbt_mint() {
                     const signer = provider.getSigner();
                     const sbtContract = new ethers.Contract(contractAddress, contractABI, signer)
 
-                    const metadataURI = `https://gateway.pinata.cloud/ipfs/QmdXtJjTGfQhxhXZRva6KPzPDaSfEd4XHvmAmKvAvuSpec/1.json`;
+                    const metadataURI = `https://gateway.pinata.cloud/ipfs/Qmb8VqE4mzX1EGtK1RybvU7BtWVuEw8zqqUaSgZNwbWGz1/1.json`;
                     /*  <<調用 ABI 方法 (Pseudocode)>>
                     *
                     *   safeMint(
@@ -106,12 +107,12 @@ export default function Sbt_mint() {
     
     return (
         <div>
-            <h1>靈魂綁定代幣鑄造程序</h1>
+            <h1 className={styles.title}>靈魂註冊程序</h1>
             <button onClick={() => refreshUserData()}>重新整理</button>
             <br/><br/>
             {isWalletConnected && permissionAllowed && isContractManager
                 ?   <alert color='success'>
-                        SUCCESS : 歡迎使用代幣管理中心 ! ! !
+                        SUCCESS : 歡迎使用SBT管理中心 ! ! !
                         {isWalletConnected && <div><span className="font-bold">您當前的錢包地址 : </span>{customerAddress}</div>}
                         <br/>
                     </alert>
@@ -120,7 +121,7 @@ export default function Sbt_mint() {
             <div>
                 {permissionAllowed && isContractManager
                     ?   <div>
-                            <figure><img src={sbtMetadata.image} alt={sbtMetadata.name} /></figure>
+                            <figure><img src={sbtMetadata.image} alt={sbtMetadata.name} style={{width: "30%"}}/></figure>
                         </div>
                     :   <div>
                             <alert color='warning'>
@@ -133,7 +134,7 @@ export default function Sbt_mint() {
             {biometricRegisterStatus
                 ?   <alert>
                         <ul>
-                            <li>用戶帳號名 : {username}</li>
+                            <li>用戶帳號名稱 : {username}</li>
                             <li>用戶ID : {userData_DB._id}</li>
                             <li>用戶電子信箱 : {userData_DB.email}</li>
                             <li>用戶以太坊錢包地址 : {userWalletAddress}</li>
@@ -144,7 +145,7 @@ export default function Sbt_mint() {
                     </alert>
                 :   <></>
             }
-            <button onClick={() => sbt_mint()}>鑄造SBT</button>
+            <button onClick={() => sbt_mint()}>開始鑄造SBT</button>
             <br/>
             <alert>{mintStatus}</alert>
         </div>

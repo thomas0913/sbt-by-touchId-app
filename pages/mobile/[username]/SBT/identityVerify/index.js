@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
 import base64url from "base64url";
+import styles from "../../../../../styles/Home.module.css";
  
 export default function IdentityVerify() {
     const [authenticateStatus, setAuthenticateStatus] = useState(false);
@@ -142,10 +143,10 @@ export default function IdentityVerify() {
 
     return (
         <div>
-            <h1>身分認證</h1>
-            <button onClick={() => authenticate()}>開始認證生物辨識數據</button>
+            <h1 className={styles.title}>指紋驗證</h1>
+            <button onClick={() => authenticate()}>開始驗證生物辨識數據</button>
             <br/>
-            {authenticateStatus && <p>認證成功</p>}
+            {authenticateStatus && <p>✅ 驗證成功</p>}
         </div>
     );
 }
