@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
 import abi from "../../../../../smartContract/contracts/SBT_biometric.json";
 import sbtMetadata from "../../../../../smartContract/metadata/sbt_metadata.json";
 
-export default function sbt_mint() {
+export default function Sbt_mint() {
     const [biometricRegisterStatus, setBiometricRegisterStatus] = useState(false);
     const [userData_DB, setUserData_DB] = useState(null);
     const [mintStatus, setMintStatus] = useState("");

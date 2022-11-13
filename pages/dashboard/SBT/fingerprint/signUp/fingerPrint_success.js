@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function fingerPrint_success() {
+export default function FingerPrint_success() {
     const router = useRouter();
 
     useEffect(() => {

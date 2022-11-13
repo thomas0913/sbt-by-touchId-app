@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function sbt_mint_success() {
+export default function Sbt_mint_success() {
     const router = useRouter();
 
     /* 如果SBT鑄造成功，則發送 Email 至客戶與管理者 */
