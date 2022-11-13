@@ -11,7 +11,7 @@ export default function IdentityVerify() {
     const [authenticateStatus, setAuthenticateStatus] = useState(false);
     const [userDetail_afterAuth, setUserDetail_afterAuth] = useState();
     const [userSbtContractAddress, setUserSbtContractAddress] = useState({ address: "" });
-    const [userSbtId, setUserSbtId] = useState({ id: "" });
+    const [userSbtId, setUserSbtId] = useState({ id: "" }); 
     const [userCred_fromSbt, setUserCred_fromSbt] = useState(null);
     const [userMetadata_fromSbt, setUserMetadata_fromSbt] = useState(null);
 
