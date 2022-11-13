@@ -24,7 +24,7 @@ export default function Sbt_mint() {
     const router = useRouter();
     const origin = process.env.NEXT_PUBLIC_HEROKU_SERVER_URL;
 
-    const contractAddress = "0x087bd06dBd076c579400e144566069Bf1D00D0A3";
+    const contractAddress = "0x42615207546fC235ff8d33c046EeC96C4bbAbF94";
     const contractABI = abi;
 
     //取得用戶資料，並查看是否已註冊完成生物辨識數據
